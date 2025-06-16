@@ -15,11 +15,11 @@ const Navbar: React.FC = () => {
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 px-8 py-4 transition-colors duration-300 ${
-        scrolled ? "bg-white shadow text-black" : "bg-transparent text-white"
+        scrolled ? "bg-white text-black" : "bg-transparent text-white"
       }`}
     >
       <div className="flex justify-center items-center max-w-screen-xl mx-auto">
-        <ul className="hidden md:flex gap-15 font-bold text-l font-Lexend text-gray-">
+        <ul className="hidden md:flex gap-15 font-bold text-l font-Lexend text-gray">
           {["Home", "Map", "Natural Heritage", "Reservation", "Gallery"].map(
             (item) => (
               <li key={item}>

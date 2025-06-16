@@ -6,7 +6,7 @@ const Hero: React.FC = () => {
   return (
     
     <section
-      className="w-full h-screen bg-cover bg-center relative"
+      className="w-full h-screen bg-cover bg-center relative brightness-90"
       style={{
         backgroundImage: `url(${heroImage})`,
       }}
@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
           Discover the beauty of Bali's hidden village with culture, nature, and serenity.
         </p>
 
-        <Button variant="secondary" className="font-lexend mt-4 text-base px-6 py-3 rounded-lg" >Start Exploring</Button>
+        <Button variant="secondary" className="font-lexend mt-4 text-base px-6 py-3 rounded-4xl" >Start Exploring</Button>
       </div>
     </section>
     
