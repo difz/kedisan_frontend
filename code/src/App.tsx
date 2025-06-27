@@ -3,6 +3,7 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Location from "./components/Location";
 import Reservation from "./components/Reservation";
+import Seemore from "./components/Seemore";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <About />
       <Location />
       <Reservation />
+      <Seemore />
     </>
   );
 }
