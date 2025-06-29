@@ -1,5 +1,5 @@
 import React from "react";
-import heroImage from "../images/contoh.jpg"; // Adjust the path as necessary
+import heroImage from "../images/contoh.jpg"; 
 import { Button } from "./ui/button";
 
 const Hero: React.FC = () => {
@@ -12,7 +12,6 @@ const Hero: React.FC = () => {
       }}
     >
       
-      {/* <div className="absolute inset-0 bg-black bg-opacity-50" /> */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
         <h2 className="text-white font-lexend text-[28px] font-light leading-[28.875px] tracking-[21px] uperrcase">EXPLORE</h2>
         <h1 className="font-girona font-bold text-[186.72px] leading-none text-transparent bg-clip-text" 
@@ -27,7 +26,25 @@ const Hero: React.FC = () => {
           Discover the beauty of Bali's hidden village with culture, nature, and serenity.
         </p>
 
-        <Button variant="secondary" className="font-lexend mt-4 text-base px-6 py-3 rounded-4xl" >Start Exploring</Button>
+        <Button 
+        onClick={() => {
+              const element = document.getElementById('about');
+    if (element) {
+      const offset = -50; // scroll 100px higher (adjust as needed)
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition + offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+  }}
+    //      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+       // }} 
+        variant="secondary" className="font-lexend mt-4 text-base px-6 py-3 rounded-4xl" >Start Exploring</Button>
       </div>
     </section>
     

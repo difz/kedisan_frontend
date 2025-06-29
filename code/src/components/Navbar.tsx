@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
     >
       <div className="flex justify-center items-center max-w-screen-xl mx-auto">
         <ul className="hidden md:flex gap-15 font-bold text-l font-Lexend text-gray">
-          {["Home", "Map", "Natural Heritage", "Reservation", "Gallery"].map(
+          {["Home", "Natural Heritage", "Reservation", "Gallery"].map(
             (item) => (
               <li key={item}>
                 <a href={`#${item.toLowerCase()}`} className="hover:underline">

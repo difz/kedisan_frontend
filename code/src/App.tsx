@@ -4,6 +4,7 @@ import About from "./components/About";
 import Location from "./components/Location";
 import Reservation from "./components/Reservation";
 import Seemore from "./components/Seemore";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Location />
       <Reservation />
       <Seemore />
+      <Footer />
     </>
   );
 }

@@ -4,8 +4,8 @@ import view from "../images/view.png";
 
 const About: React.FC = () => {
     return (
-        <div className="flex w-full min-h-screen"> 
-            <div className="w-1/3 bg-[#9CAF88] flex items-center justify-center p-8 md:p-12 lg:p-16">
+        <div id="about" className="flex w-full min-h-screen"> 
+            <div className="w-1/3 bg-[#9CAF88] flex items-center justify-center p-8 md:p-12 lg:p-16 rounded-xl translate-x-[-20px] ">
                 
                 <div className="scale-140 w-full max-w-md translate-x-[50px]"> 
                     <img

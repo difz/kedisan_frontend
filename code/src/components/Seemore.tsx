@@ -8,18 +8,17 @@ const Seemore: React.FC = () => {
                 See More
             </h1>
             <div className="flex justiyfy-center">
-                <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-4">
-                    {galleryImages.map((image) => (
+                <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-4">  
+                {galleryImages.map((image) => (
                     <div key={image.id} className="flex-shrink-0 w-48 sm:w-56 md:w-64">
                         <img
-                            src={image.src}
-                            alt={image.alt}
-                            className="w-full h-full object-cover rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300"
-                            onError={(e) => { e.currentTarget.src = 'https://placehold.co/400x600/cccccc/FFFFFF?text=Error'; }} />
-
+                        src={image.src}
+                        alt={image.alt}
+                        className="w-full h-full object-cover rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300"
+                        onError={(e) => { e.currentTarget.src = 'https://placehold.co/400x600/cccccc/FFFFFF?text=Error'; }} // Fallback
+                        />
                     </div>
-                    ))}
-
+              ))}
                 </div>
 
             </div>
