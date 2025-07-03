@@ -1,6 +1,8 @@
 import imageView from '../images/view.png';
 import imageContoh from '../images/contoh.jpg';
 import imageSawah from '../images/sawah.png';
+import laura from '../images/Laura.jpg';
+import najya from '../images/najya.jpg';
 
 
 
@@ -22,12 +24,12 @@ export const galleryImages =[
     },
     {
         id: 4,
-        src:'https://placehold.co/400x600/cccccc/FFFFFF?text=Image+4',
+        src:laura,
         alt:'Image 4',
-    },
+    }, 
     {
         id: 5,
-        src:'https://placehold.co/400x600/cccccc/FFFFFF?text=Image+5',
+        src: najya,
         alt:'Image 5',
     },
     {

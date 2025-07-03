@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 const Hero: React.FC = () => {
   return (
     
-    <section
+    <section id='hero'
       className="w-full h-screen bg-cover bg-center relative brightness-90"
       style={{
         backgroundImage: `url(${heroImage})`,

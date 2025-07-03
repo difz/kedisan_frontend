@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
+  // const location = useLocation();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => {
@@ -12,6 +15,18 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  //   const handleNavigation = (targetId: string) => {
+  //   if (location.pathname === "/") {
+  //     const element = document.getElementById(targetId);
+  //     if (element) {
+  //       const y = element.getBoundingClientRect().top + window.scrollY - 100;
+  //       window.scrollTo({ top: y, behavior: "smooth" });
+  //     }
+  //   } else {
+  //     navigate("/", { state: { scrollToId: targetId } });
+  //   }
+  // };
+  
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 px-8 py-4 transition-colors duration-300 ${
