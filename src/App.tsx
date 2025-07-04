@@ -4,6 +4,7 @@ import About from "./components/About";
 import Location from "./components/Location";
 import Reservation from "./components/Reservation";
 import Seemore from "./components/Seemore";
+import Sponsors from "./components/Sponsors";
 import Footer from "./components/Footer";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Location />
       <Reservation />
       <Seemore />
+      <Sponsors />
       <Footer />
     </>
   );

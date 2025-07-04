@@ -1,0 +1,55 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# Dependencies
+# Ignore node_modules in both the root project and the sanity sub-directory
+/node_modules
+/sanity/node_modules
+
+# Build Outputs
+# Ignore build artifacts from Vite and Sanity
+/dist
+/dist-ssr
+/sanity/dist
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment Variables & Credentials
+# ===================================
+# NEVER commit files with secrets like API keys or auth tokens.
+# Vite and other tools use these files for local environment variables.
+.env
+.env.local
+.env.*.local
+
+# Sanity-specific local files
+# The Sanity CLI can create local files with auth tokens.
+/sanity/sanity.local.json
+/sanity/sanity.local.js
+
+# OS-generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor directories and files
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
