@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { FiMenu, FiX } from "react-icons/fi";
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
+    const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const handleNavigation = (targetId: string) => {
+    setMenuOpen(false);
     if (location.pathname === "/") {
       const element = document.getElementById(targetId);
       if (element) {
@@ -23,7 +23,6 @@ const Navbar: React.FC = () => {
         window.scrollTo({ top: y, behavior: "smooth" });
       }
     } else {
-      // Redirect to home with state
       navigate("/", { state: { scrollToId: targetId } });
     }
   };
@@ -35,28 +34,55 @@ const Navbar: React.FC = () => {
       }`}
     >
       <div className="flex justify-center items-center max-w-screen-xl mx-auto">
+        {/* Desktop menu */}
         <ul className="hidden md:flex gap-15 font-bold text-l font-Lexend text-gray">
           <li>
-            <button onClick={() => handleNavigation("hero")} className="hover:underline cursor-pointer">
+            <button
+              onClick={() => handleNavigation("hero")}
+              className="hover:underline cursor-pointer"
+            >
               Home
             </button>
           </li>
           <li>
-            <a href="#natural-heritage" className="hover:underline">
-              Natural Heritage
+            <a href="#natural-resources" className="hover:underline cursor-pointer">
+              Natural Resources
             </a>
           </li>
           <li>
-            <a href="#reservation" className="hover:underline">
+            <a href="#reservation" className="hover:underline cursor-pointer">
               Reservation
             </a>
           </li>
           <li>
-            <a href="#gallery" className="hover:underline">
+            <a href="#gallery" className="hover:underline cursor-pointer">
               Gallery
             </a>
           </li>
         </ul>
+
+        {/* Mobile menu toggle */}
+        <div className="md:hidden absolute right-8 top-4 z-50">
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="text-3xl"
+            aria-label="Toggle Menu"
+          >
+            {menuOpen ? <FiX /> : <FiMenu />}
+          </button>
+        </div>
+
+        {/* Mobile menu content */}
+        {menuOpen && (
+          <div className="md:hidden fixed top-0 left-0 w-full h-screen bg-white text-black flex flex-col items-center justify-center gap-10 font-Lexend text-xl z-40">
+            <button onClick={() => handleNavigation("hero")}>Home</button>
+            <button onClick={() => handleNavigation("natural-resources")}>
+              Natural Resources
+            </button>
+            <button onClick={() => handleNavigation("reservation")}>Reservation</button>
+            <button onClick={() => handleNavigation("gallery")}>Gallery</button>
+          </div>
+        )}
       </div>
     </nav>
   );
