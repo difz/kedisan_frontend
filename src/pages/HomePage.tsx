@@ -1,5 +1,6 @@
 // src/pages/Home.tsx
 import React from "react";
+import Navbar from "@/components/Navbar";
 import Hero from "../components/Hero";
 import About from "../components/About";
 import Reservation from "../components/Reservation";
@@ -28,10 +29,11 @@ const HomePage: React.FC = () => {
     
   return (
     <>
+      <Navbar />
       <ScrollToSectionOnLoad />
       <Hero />
       <About />
-      <Reservation />
+      <Reservation mode="simple"/>
       <Seemore />
       <Footer />
     </>

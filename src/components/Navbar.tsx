@@ -50,9 +50,12 @@ const Navbar: React.FC = () => {
             </a>
           </li>
           <li>
-            <a href="#reservation" className="hover:underline cursor-pointer">
+            <button 
+            onClick={()=> navigate("/reservation")}
+            className="hover:underline cursor-pointer"
+            >
               Reservation
-            </a>
+            </button>
           </li>
           <li>
             <a href="#gallery" className="hover:underline cursor-pointer">

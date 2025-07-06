@@ -1,10 +1,22 @@
 import React from "react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import Reservation from "@/components/Reservation";
 
 const ReservationPage: React.FC = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <h1 className="text-3xl font-bold">Reservation Page (Coming Soon)</h1>
+    <>
+    <Navbar />
+    <div>
+
+      <Reservation mode="full" />
+
     </div>
+    
+    
+    <Footer />
+    </>
+    
   );
 };
 

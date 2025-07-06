@@ -1,17 +1,14 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/HomePage";
-import Navbar from "./components/Navbar";
+import HomePage from "./pages/HomePage";
+import ReservationPage from "./pages/ReservationPage";
 
 const App: React.FC = () => {
   return (
-    <>
-      <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        {/* <Route path="/reservation" element={<Reservation />} /> */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/reservation" element={<ReservationPage />} />
       </Routes>
-    </>
   );
 };
 

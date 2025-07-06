@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import view from "../images/view.png";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 import { sanityClient } from "../lib/sanityClient";
@@ -9,10 +15,17 @@ interface TourPackage {
   _id: string;
   title: string;
   description: string;
+  language?: string;
+  duration?: string;
+  type?: string;
   images: { asset: { url: string } }[];
 }
 
-const Reservation: React.FC = () => {
+interface ReservationProps {
+  mode?: "full" | "simple";
+}
+
+const Reservation: React.FC<ReservationProps> = ({ mode = "full" }) => {
   const [packages, setPackages] = useState<TourPackage[]>([]);
   const navigate = useNavigate();
 
@@ -22,6 +35,9 @@ const Reservation: React.FC = () => {
         _id,
         title,
         description,
+        language,
+        duration,
+        type,
         images
       }`;
       const data = await sanityClient.fetch(query);
@@ -31,18 +47,44 @@ const Reservation: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full bg-[#F7F7F7] px-4 md:px-20 py-16">
-      <h1 className="text-center font-girona font-bold text-black text-5xl sm:text-6xl md:text-7xl lg:text-[100px] mb-6 md:mb-8">
-        Reservation
-      </h1>
+    <div className="w-full left-4 bg-[#F7F7F7] px-4 md:px-20 py-16">
+      {mode === "full" && (
+        <h1 className="text-center font-girona font-bold text-black text-5xl sm:text-6xl md:text-7xl lg:text-[100px] mb-6 md:mb-8">
+          Reservation
+        </h1>
+      )}
+
       <div className="grid gap-8">
         {packages.map((pkg) => (
-          <Card key={pkg._id}>
+          <Card key={pkg._id} className="bg-white rounded-3xl shadow-md px-6 py-6">
             <CardHeader>
-              <CardTitle className="font-girona text-3xl md:text-[50px]">{pkg.title}</CardTitle>
+              <CardTitle className="font-girona text-2xl sm:text-3xl mb-2">
+                {pkg.title}
+              </CardTitle>
             </CardHeader>
+
             <CardContent className="flex flex-col-reverse md:flex-row gap-6">
               <div className="w-full md:w-2/3">
+                {mode === "full" && (
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {pkg.language && (
+                      <span className="bg-[#B5BEA4] text-white font-lexend px-3 py-1 rounded-full text-sm">
+                        {Array.isArray(pkg.language) ? pkg.language.join(" / ") : pkg.language}
+                      </span>
+                    )}
+                    {pkg.duration && (
+                      <span className="bg-[#B5BEA4] text-white font-lexend px-3 py-1 rounded-full text-sm">
+                        {pkg.duration}
+                      </span>
+                    )}
+                    {pkg.type && (
+                      <span className="bg-[#B5BEA4] text-white font-lexend px-3 py-1 rounded-full text-sm">
+                        {pkg.type}
+                      </span>
+                    )}
+                  </div>
+                )}
+
                 <p className="font-lexend text-base md:text-[18px] text-gray-700">
                   {pkg.description}
                 </p>
@@ -55,10 +97,11 @@ const Reservation: React.FC = () => {
                 />
               </div>
             </CardContent>
+
             <CardFooter>
               <Button
                 onClick={() => navigate(`/tour-packages/${pkg._id}`)}
-                className="font-lexend text-base px-6 py-3 rounded-4xl"
+                className="bg-black text-white font-lexend text-base px-6 py-3 rounded-full hover:bg-gray-800"
               >
                 Book Now
               </Button>
