@@ -12,7 +12,6 @@ const Hero: React.FC = () => {
       }}
     >
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-        {/* EXPLORE */}
         <h2 className="text-white font-lexend text-base md:text-xl lg:text-2xl font-light tracking-[10px] md:tracking-[16px] uppercase mb-2">
           EXPLORE
         </h2>
