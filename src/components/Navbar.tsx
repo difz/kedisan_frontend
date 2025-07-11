@@ -45,9 +45,14 @@ const Navbar: React.FC = () => {
             </button>
           </li>
           <li>
-            <a href="#natural-resources" className="hover:underline cursor-pointer">
+            
+            <button 
+            onClick={() => navigate("/natural-resources")}
+            
+            className="hover:underline cursor-pointer"
+            >
               Natural Resources
-            </a>
+            </button>
           </li>
           <li>
             <button 
