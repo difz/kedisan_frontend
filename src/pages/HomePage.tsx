@@ -6,6 +6,7 @@ import About from "../components/About";
 import Reservation from "../components/Reservation";
 import Seemore from "../components/Seemore";
 import Footer from "../components/Footer";
+import ClickSpark from "../effect/clickspark"; 
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -29,6 +30,15 @@ const HomePage: React.FC = () => {
     
   return (
     <>
+    <ClickSpark
+      sparkColor="#800000"
+      sparkSize={8}
+      sparkRadius={30}
+      sparkCount={10}
+      duration={500}
+      easing="ease-out"
+      extraScale={1.2}
+    >
       <Navbar />
       <ScrollToSectionOnLoad />
       <Hero />
@@ -36,6 +46,7 @@ const HomePage: React.FC = () => {
       <Reservation mode="simple"/>
       <Seemore />
       <Footer />
+       </ClickSpark>  
     </>
   );
 };

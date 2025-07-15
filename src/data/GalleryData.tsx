@@ -19,40 +19,40 @@ export const galleryImages =[
     },
     {
         id: 3,
-        src:imageSawah,
+        src:imageView,
         alt:'Image 3',
     },
     {
         id: 4,
-        src:laura,
+        src:imageContoh,
         alt:'Image 4',
     }, 
     {
         id: 5,
-        src: najya,
+        src: imageContoh,
         alt:'Image 5',
     },
     {
         id: 6,
-        src:'https://placehold.co/400x600/cccccc/FFFFFF?text=Image+6',
+        src:imageContoh,
         alt:'Image 6',
     },
        
     {
         id: 7,
-        src:'https://placehold.co/400x600/cccccc/FFFFFF?text=Image+7',
+        src: imageView,
         alt:'Image 7',
     },
        
     {
         id: 8,
-        src:'https://placehold.co/400x600/cccccc/FFFFFF?text=Image+8',
+        src:imageView,
         alt:'Image 8',
     },
        
     {
         id: 9,
-        src:'https://placehold.co/400x600/cccccc/FFFFFF?text=Image+9',
+        src:imageContoh,
         alt:'Image 9',
     },
     
