@@ -8,7 +8,8 @@ const Seemore: React.FC = () => {
             <h1 className="text-center font-girona font-bold text-black text-5xl sm:text-6xl md:text-7xl lg:text-[100px] mb-6 md:mb-8">
                 See More
             </h1>
-            <div className="flex justiyfy-center relative w-full min-h-[300px] sm:min-h-[350px] lg:min-h-[400px] overflow-hidden bg-[#f7f7f7]">
+            <div className="flex justiyfy-center">
+                
                 <RollingGallery images={galleryImages} autoplay pauseOnHover />
                 {/* <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-4">  
                 {galleryImages.map((image) => (

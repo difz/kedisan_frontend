@@ -8,9 +8,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "./ui/button";
-import { useNavigate } from "react-router-dom";
 import { sanityClient } from "../lib/sanityClient";
 import { motion } from "framer-motion";
+import SplitText from "@/effect/SplitText";
+import { useNavigate } from "react-router-dom";
 
 interface TourPackage {
   _id: string;
@@ -19,6 +20,7 @@ interface TourPackage {
   language?: string;
   duration?: string;
   type?: string;
+  link?: string;
   images: { asset: { url: string } }[];
 }
 
@@ -39,6 +41,7 @@ const Reservation: React.FC<ReservationProps> = ({ mode = "full" }) => {
         language,
         duration,
         type,
+        link,
         images
       }`;
       const data = await sanityClient.fetch(query);
@@ -48,11 +51,22 @@ const Reservation: React.FC<ReservationProps> = ({ mode = "full" }) => {
   }, []);
 
   return (
-    <div className="w-full left-4 bg-[#F7F7F7] px-4 md:px-20 py-16">
+    <div className="w-full bg-[#F7F7F7] px-4 md:px-20 py-16">
       {mode === "full" && (
-        <h1 className="text-center font-girona font-bold text-black text-5xl sm:text-6xl md:text-7xl lg:text-[100px] mb-6 md:mb-8">
-          Reservation
-        </h1>
+        <div className="w-full flex justify-center">
+          <SplitText
+            text="Reservation"
+            className="text-center font-girona font-bold text-black text-5xl sm:text-6xl md:text-7xl lg:text-[100px] mb-6 md:mb-8"
+            delay={150}
+            duration={0.8}
+            ease="power3.out"
+            splitType="chars"
+            from={{ opacity: 0, y: 40 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.1}
+            rootMargin="-100px"
+          />
+        </div>
       )}
 
       <div className="grid gap-8">
@@ -110,10 +124,16 @@ const Reservation: React.FC<ReservationProps> = ({ mode = "full" }) => {
 
               <CardFooter>
                 <Button
-                  onClick={() => navigate(`/tour-packages/${pkg._id}`)}
+                  onClick={() => {
+                    if (mode === "simple") {
+                      navigate("/reservation");
+                    } else if (pkg.link) {
+                      window.open(pkg.link, "_blank");
+                    }
+                  }}
                   className="bg-black text-white font-lexend text-base px-6 py-3 rounded-full hover:bg-gray-800"
                 >
-                  Book Now
+                  {mode === "simple" ? "See More" : "Book Now"}
                 </Button>
               </CardFooter>
             </Card>

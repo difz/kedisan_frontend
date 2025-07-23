@@ -1,6 +1,7 @@
 import React from 'react';
 import logoKembara from '../images/Warna Logo.png';
 import logoKKN from '../images/logoKKN.png';
+import logoKedisan from '../../public/KedisanLogo.png';
 import SocialIcon from './ui/socialIcon';
 
 const Footer: React.FC = () => {
@@ -22,14 +23,20 @@ const Footer: React.FC = () => {
             {/* Column 2: Logos */}
             <div className="w-full md:w-1/3 flex justify-center gap-4">
               <img
-                src={logoKembara}
-                alt="Logo Outline"
+                src={logoKedisan}
+                alt="Logo Kedisan"
                 className="h-10 w-10 md:h-12 md:w-12"
                 onError={(e) => { e.currentTarget.src = 'https://placehold.co/48x48/cccccc/FFFFFF?text=Err'; }}
               />
               <img
                 src={logoKKN}
                 alt="Logo KKN"
+                className="h-10 w-10 md:h-12 md:w-12"
+                onError={(e) => { e.currentTarget.src = 'https://placehold.co/48x48/cccccc/FFFFFF?text=Err'; }}
+              />
+              <img
+                src={logoKembara}
+                alt="Logo Outline"
                 className="h-10 w-10 md:h-12 md:w-12"
                 onError={(e) => { e.currentTarget.src = 'https://placehold.co/48x48/cccccc/FFFFFF?text=Err'; }}
               />

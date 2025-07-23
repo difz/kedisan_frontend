@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
               Home
             </button>
           </li>
-          <li>
+          {/* <li>
             
             <button 
             onClick={() => navigate("/natural-resources")}
@@ -53,7 +53,7 @@ const Navbar: React.FC = () => {
             >
               Natural Resources
             </button>
-          </li>
+          </li> */}
           <li>
             <button 
             onClick={()=> navigate("/reservation")}
