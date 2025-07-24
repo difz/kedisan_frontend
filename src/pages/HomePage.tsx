@@ -7,6 +7,7 @@ import Reservation from "../components/Reservation";
 import Seemore from "../components/Seemore";
 import Footer from "../components/Footer";
 import ClickSpark from "../effect/clickspark"; 
+import KedisanMap from  "../components/KedisanMap";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -43,6 +44,7 @@ const HomePage: React.FC = () => {
       <ScrollToSectionOnLoad />
       <Hero />
       <About />
+      <KedisanMap />
       <Reservation mode="simple"/>
       <Seemore />
       <Footer />
