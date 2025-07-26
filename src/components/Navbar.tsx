@@ -83,12 +83,27 @@ const Navbar: React.FC = () => {
         {/* Mobile menu content */}
         {menuOpen && (
           <div className="md:hidden fixed top-0 left-0 w-full h-screen bg-white text-black flex flex-col items-center justify-center gap-10 font-Lexend text-xl z-40">
-            <button onClick={() => handleNavigation("hero")}>Home</button>
-            <button onClick={() => handleNavigation("natural-resources")}>
-              Natural Resources
+          <li>
+            <button
+              onClick={() => handleNavigation("hero")}
+              className="hover:underline cursor-pointer"
+            >
+              Home
             </button>
-            <button onClick={() => handleNavigation("reservation")}>Reservation</button>
-            <button onClick={() => handleNavigation("gallery")}>Gallery</button>
+          </li>
+          <li>
+            <button 
+            onClick={()=> navigate("/reservation")}
+            className="hover:underline cursor-pointer"
+            >
+              Reservation
+            </button>
+          </li>
+          <li>
+            <a href="#gallery" className="hover:underline cursor-pointer">
+              Gallery
+            </a>
+          </li>
           </div>
         )}
       </div>
