@@ -25,7 +25,7 @@ const About: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         viewport={{ once: true, amount: 0.3 }}
-        className="w-full md:w-1/3 bg-[#9CAF88] flex items-center justify-center p-8 md:p-12 lg:p-16 rounded-xl"
+        className="w-full md:w-1/3 bg-[#9CAF88] flex items-center justify-center p-8 md:p-12 lg:p-16 rounded-r-4xl"
       >
         {about.images?.[0] && (
           <img
@@ -59,7 +59,19 @@ const About: React.FC = () => {
           viewport={{ once: true, amount: 0.3 }}
           className="font-lexend text-gray-700 text-base md:text-lg leading-relaxed prose max-w-none mb-6"
         >
-          <PortableText value={about.content} />
+          <PortableText
+            value={about.content}
+            components={{
+            block: {
+              normal: ({ children }) => (
+                <p className="whitespace-pre-line text-gray-700 text-base md:text-lg font-lexend mb-4">
+                    {children}
+                </p>
+              ),
+            },
+          }}
+        />         
+ 
         </motion.div>
 
         {about.images?.[1] && (
