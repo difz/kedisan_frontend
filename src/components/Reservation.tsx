@@ -33,6 +33,15 @@ const Reservation: React.FC<ReservationProps> = ({ mode = "full" }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const hash = window.location.hash;
+  if (hash === "#hero") {
+    const el = document.getElementById("hero");
+    if (el) {
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: "smooth" });
+      }, 200); // wait for the page to render
+    }
+  }
     async function fetchData() {
       const query = `*[_type == "tourPackage"]{
         _id,
@@ -126,7 +135,7 @@ const Reservation: React.FC<ReservationProps> = ({ mode = "full" }) => {
                 <Button
                   onClick={() => {
                     if (mode === "simple") {
-                      navigate("/reservation");
+                      navigate("/reservation#hero");
                     } else if (pkg.link) {
                       window.open(pkg.link, "_blank");
                     }

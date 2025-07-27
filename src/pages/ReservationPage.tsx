@@ -68,6 +68,7 @@ const ReservationPage: React.FC = () => {
 
       {/* Hero Section: Top half-screen image with title */}
       <div
+      id="hero"
         className="w-full h-[50vh] bg-cover bg-center relative"
         style={{ backgroundImage: `url(${heroImage})` }}
       >
