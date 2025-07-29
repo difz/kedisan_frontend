@@ -25,6 +25,7 @@ const ScrollToSectionOnLoad = () => {
     }
   }, [location]);
 
+  
   return null;
 };
 
