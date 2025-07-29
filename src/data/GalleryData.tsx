@@ -1,8 +1,5 @@
 import imageView from '../images/view.png';
 import imageContoh from '../images/contoh.jpg';
-import imageSawah from '../images/sawah.png';
-import laura from '../images/Laura.jpg';
-import najya from '../images/najya.jpg';
 
 
 
