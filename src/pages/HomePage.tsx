@@ -5,6 +5,7 @@ import Hero from "../components/Hero";
 import About from "../components/About";
 import Reservation from "../components/Reservation";
 import Seemore from "../components/Seemore";
+import Sponsors from "../components/Sponsors";
 import Footer from "../components/Footer";
 import ClickSpark from "../effect/clickspark"; 
 import KedisanMap from  "../components/KedisanMap";
@@ -47,6 +48,7 @@ const HomePage: React.FC = () => {
       <KedisanMap />
       <Reservation mode="simple"/>
       <Seemore />
+      <Sponsors />
       <Footer />
        </ClickSpark>  
     </>
