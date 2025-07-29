@@ -20,19 +20,19 @@ const RollingGallery: React.FC<RollingGalleryProps> = ({
 }) => {
   const galleryData = images && images.length > 0 ? images : [];
 
-  const [isScreenSizeSm, setIsScreenSizeSm] = useState<boolean>(
-    window.innerWidth <= 640
-  );
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 640);
+
   useEffect(() => {
-    const handleResize = () => setIsScreenSizeSm(window.innerWidth <= 640);
+    const handleResize = () => setIsMobile(window.innerWidth <= 640);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const cylinderWidth = isScreenSizeSm ? 1100 : window.innerWidth * 1.15;
+  // 🎯 Square size on mobile, keep desktop large
+  const faceWidth = isMobile ? 120 : 280;
+  const faceHeight = isMobile ? 120 : 180;
+  const cylinderWidth = isMobile ? 800 : window.innerWidth * 1.15;
   const faceCount = galleryData.length;
-  const faceWidth = isScreenSizeSm ? 220 : 280;
-  const faceHeight = isScreenSizeSm ? 140 : 180;
   const radius = (cylinderWidth * 1.4) / (2 * Math.PI);
 
   const dragFactor = 0.05;
@@ -101,10 +101,10 @@ const RollingGallery: React.FC<RollingGalleryProps> = ({
   };
 
   return (
-    <div className="relative w-full h-[500px] overflow-hidden bg-[#F7F7F7]">
-      {/* Left & right gradient fade */}
-      <div className="absolute top-0 left-0 h-full w-[48px] z-10 bg-[#F7F7F7]" />
-      <div className="absolute top-0 right-0 h-full w-[48px] z-10 bg-[#F7F7F7]" />
+    <div className="relative w-full h-[400px] sm:h-[500px] overflow-hidden bg-[#F7F7F7]">
+      {/* Fade edges */}
+      <div className="absolute top-0 left-0 h-full w-[24px] sm:w-[48px] z-10 bg-[#F7F7F7]" />
+      <div className="absolute top-0 right-0 h-full w-[24px] sm:w-[48px] z-10 bg-[#F7F7F7]" />
 
       <div className="flex h-full items-center justify-center [perspective:1000px] [transform-style:preserve-3d]">
         <motion.div
@@ -138,7 +138,9 @@ const RollingGallery: React.FC<RollingGalleryProps> = ({
                 <img
                   src={img.src}
                   alt={img.alt}
-                  className="max-h-full max-w-full object-contain rounded-xl border-2 border-white transition-transform duration-300 ease-out group-hover:scale-105"
+                  className={`w-full h-full object-cover ${
+                    isMobile ? "rounded-xl" : "rounded-xl"
+                  } border-2 border-white transition-transform duration-300 ease-out group-hover:scale-105`}
                 />
               </div>
             </div>
