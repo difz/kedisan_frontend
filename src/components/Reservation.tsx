@@ -12,16 +12,18 @@ import { sanityClient } from "../lib/sanityClient";
 import { motion } from "framer-motion";
 import SplitText from "@/effect/SplitText";
 import { useNavigate } from "react-router-dom";
+import { urlFor } from "../lib/imageUrl";
 
 interface TourPackage {
   _id: string;
   title: string;
   description: string;
-  language?: string;
+  language?: string | string[];
   duration?: string;
   type?: string;
+  price: number;
   link?: string;
-  images: { asset: { url: string } }[];
+  images: { asset: { _ref?: string; _type: string } }[];
 }
 
 interface ReservationProps {
@@ -34,14 +36,15 @@ const Reservation: React.FC<ReservationProps> = ({ mode = "full" }) => {
 
   useEffect(() => {
     const hash = window.location.hash;
-  if (hash === "#hero") {
-    const el = document.getElementById("hero");
-    if (el) {
-      setTimeout(() => {
-        el.scrollIntoView({ behavior: "smooth" });
-      }, 200); // wait for the page to render
+    if (hash === "#hero") {
+      const el = document.getElementById("hero");
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth" });
+        }, 200);
+      }
     }
-  }
+
     async function fetchData() {
       const query = `*[_type == "tourPackage"]{
         _id,
@@ -50,6 +53,7 @@ const Reservation: React.FC<ReservationProps> = ({ mode = "full" }) => {
         language,
         duration,
         type,
+        price,
         link,
         images
       }`;
@@ -95,6 +99,7 @@ const Reservation: React.FC<ReservationProps> = ({ mode = "full" }) => {
               </CardHeader>
 
               <CardContent className="flex flex-col-reverse md:flex-row gap-6">
+                {/* Text Section */}
                 <div className="w-full md:w-2/3">
                   {mode === "full" && (
                     <div className="flex flex-wrap gap-2 mb-4">
@@ -115,6 +120,9 @@ const Reservation: React.FC<ReservationProps> = ({ mode = "full" }) => {
                           {pkg.type}
                         </span>
                       )}
+                      <span className="bg-[#B5BEA4] text-white font-lexend px-3 py-1 rounded-full text-sm">
+                        Rp {pkg.price.toLocaleString("id-ID")}
+                      </span>
                     </div>
                   )}
 
@@ -122,12 +130,37 @@ const Reservation: React.FC<ReservationProps> = ({ mode = "full" }) => {
                     {pkg.description}
                   </p>
                 </div>
+
+                {/* Image Section */}
                 <div className="w-full md:w-1/3">
-                  <img
-                    src={pkg.images?.[0]?.asset?.url || view}
-                    alt={pkg.title}
-                    className="w-full h-auto object-cover rounded-3xl"
-                  />
+                  {mode === "simple" ? (
+                    <div className="w-full overflow-hidden rounded-2xl">
+                      <img
+                        src={
+                          pkg.images?.[0]
+                            ? urlFor(pkg.images[0]).width(400).height(400).fit("crop").url()
+                            : view
+                        }
+                        alt={pkg.title}
+                        className="w-[300px] h-[300px] mx-auto rounded-3xl"
+                      />
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-2">
+                      {pkg.images?.slice(0, 4).map((img, i) => (
+                        <div
+                          key={i}
+                          className="w-full aspect-[1/1] overflow-hidden rounded-2xl"
+                        >
+                          <img
+                            src={urlFor(img).url()}
+                            alt={`image-${i}`}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </CardContent>
 
