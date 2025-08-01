@@ -11,7 +11,7 @@
     font-family: 'Lexend', sans-serif;
   }
 
-    @font-face {
+  @font-face {
     font-family: 'Girona';
     src: url('./assets/fonts/gironatest-light.woff') format('woff');
     font-weight: 300;

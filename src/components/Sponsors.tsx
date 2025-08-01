@@ -24,7 +24,7 @@ const Sponsors: React.FC = () => {
         viewport={{ once: true, amount: 0.2 }}
         className="text-center font-girona text-4xl md:text-5xl font-bold mb-10 text-black"
       >
-        Our Sponsor
+        Our Partners
       </motion.h2>
 
       <motion.div
