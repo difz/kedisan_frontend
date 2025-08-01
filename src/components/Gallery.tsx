@@ -38,7 +38,7 @@ const Gallery: React.FC = () => {
         <SplitText
           text="Gallery"
           className="text-center font-girona font-bold text-black text-5xl sm:text-6xl md:text-7xl lg:text-[100px] mb-10"
-          delay={100}
+          delay={150}
           duration={0.8}
           ease="power3.out"
           splitType="chars"
