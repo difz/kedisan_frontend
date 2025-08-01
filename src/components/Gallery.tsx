@@ -16,19 +16,19 @@ import gallery12 from '../images/gallery12.jpg';
 import gallery13 from '../images/gallery13.jpg';
 
 const items = [
-  { id: "1", img: gallery1, url: "", height: 400 },
-  { id: "2", img: gallery2, url: "", height: 250 },
-  { id: "3", img: gallery3, url: "", height: 600 },
-  { id: "4", img: gallery4, url: "", height: 300 },
-  { id: "5", img: gallery5, url: "", height: 500 },
-  { id: "6", img: gallery6, url: "", height: 350 },
-  { id: "7", img: gallery7, url: "", height: 450 },
-  { id: "8", img: gallery8, url: "", height: 400 },
-  { id: "9", img: gallery9, url: "", height: 300 },
-  { id: "10", img: gallery10, url: "", height: 500 },
-  { id: "11", img: gallery11, url: "", height: 600 },
-  { id: "12", img: gallery12, url: "", height: 400 },
-  { id: "13", img: gallery13, url: "", height: 450 },
+  { id: "1", img: gallery1, url: gallery1, height: 400 },
+  { id: "2", img: gallery2, url: gallery2, height: 250 },
+  { id: "3", img: gallery3, url: gallery3, height: 600 },
+  { id: "4", img: gallery4, url: gallery4, height: 300 },
+  { id: "5", img: gallery5, url: gallery5, height: 500 },
+  { id: "6", img: gallery6, url: gallery6, height: 350 },
+  { id: "7", img: gallery7, url: gallery7, height: 450 },
+  { id: "8", img: gallery8, url: gallery8, height: 400 },
+  { id: "9", img: gallery9, url: gallery9, height: 300 },
+  { id: "10", img: gallery10, url: gallery10, height: 500 },
+  { id: "11", img: gallery11, url: gallery11, height: 600 },
+  { id: "12", img: gallery12, url: gallery12, height: 400 },
+  { id: "13", img: gallery13, url: gallery13, height: 450 },
 ];
 
 const Gallery: React.FC = () => {
