@@ -63,9 +63,12 @@ const Navbar: React.FC = () => {
             </button>
           </li>
           <li>
-            <a href="#gallery" className="hover:underline cursor-pointer">
+            <button 
+            onClick={()=> navigate("/gallery")}
+            className="hover:underline cursor-pointer"
+            >
               Gallery
-            </a>
+            </button>
           </li>
         </ul>
 
