@@ -1,14 +1,10 @@
-import gallery1 from '../images/gallery1.jpeg';
 import gallery2 from '../images/gallery2.jpeg';
-import gallery3 from '../images/gallery3.jpeg';
 import gallery4 from '../images/gallery4.jpeg';
 import gallery5 from '../images/gallery5.jpeg';
 import gallery6 from '../images/gallery6.jpeg';
 import gallery7 from '../images/gallery7.jpeg';
 import gallery8 from '../images/gallery8.jpeg';
 import gallery9 from '../images/gallery9.jpeg';
-import gallery10 from '../images/gallery10.jpeg';
-import gallery11 from '../images/gallery11.jpeg';
 import gallery12 from '../images/gallery12.jpg';
 import gallery13 from '../images/gallery13.jpg';
 
