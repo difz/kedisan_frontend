@@ -103,37 +103,6 @@ const Masonry: React.FC<MasonryProps> = ({
   const [containerRef, { width }] = useMeasure<HTMLDivElement>();
   const [imagesReady, setImagesReady] = useState(false);
 
-  const getInitialPosition = (item: any) => {
-    const containerRect = containerRef.current?.getBoundingClientRect();
-    if (!containerRect) return { x: item.x, y: item.y };
-
-    let direction = animateFrom;
-    if (animateFrom === "random") {
-      const dirs = ["top", "bottom", "left", "right"];
-      direction = dirs[
-        Math.floor(Math.random() * dirs.length)
-      ] as typeof animateFrom;
-    }
-
-    switch (direction) {
-      case "top":
-        return { x: item.x, y: -200 };
-      case "bottom":
-        return { x: item.x, y: window.innerHeight + 200 };
-      case "left":
-        return { x: -200, y: item.y };
-      case "right":
-        return { x: window.innerWidth + 200, y: item.y };
-      case "center":
-        return {
-          x: containerRect.width / 2 - item.w / 2,
-          y: containerRect.height / 2 - item.h / 2,
-        };
-      default:
-        return { x: item.x, y: item.y + 100 };
-    }
-  };
-
   useEffect(() => {
     preloadImages(items.map((i) => i.img)).then(() => setImagesReady(true));
   }, [items]);
@@ -156,6 +125,19 @@ const Masonry: React.FC<MasonryProps> = ({
     });
   }, [columns, items, width]);
 
+  const containerHeight = useMemo(() => {
+    if (!width || grid.length === 0) return 0;
+    const gap = 16;
+    const colHeights = new Array(columns).fill(0);
+
+    grid.forEach((item) => {
+      const col = Math.round(item.x / (item.w + gap));
+      colHeights[col] += item.h + gap;
+    });
+
+    return Math.max(...colHeights);
+  }, [grid, columns, width]);
+
   const hasMounted = useRef(false);
 
   useLayoutEffect(() => {
@@ -166,7 +148,36 @@ const Masonry: React.FC<MasonryProps> = ({
       const animProps = { x: item.x, y: item.y, width: item.w, height: item.h };
 
       if (!hasMounted.current) {
-        const start = getInitialPosition(item);
+        const containerRect = containerRef.current?.getBoundingClientRect();
+        const start = (() => {
+          if (!containerRect) return { x: item.x, y: item.y };
+          let direction = animateFrom;
+          if (animateFrom === "random") {
+            const dirs = ["top", "bottom", "left", "right"];
+            direction = dirs[
+              Math.floor(Math.random() * dirs.length)
+            ] as typeof animateFrom;
+          }
+
+          switch (direction) {
+            case "top":
+              return { x: item.x, y: -200 };
+            case "bottom":
+              return { x: item.x, y: window.innerHeight + 200 };
+            case "left":
+              return { x: -200, y: item.y };
+            case "right":
+              return { x: window.innerWidth + 200, y: item.y };
+            case "center":
+              return {
+                x: containerRect.width / 2 - item.w / 2,
+                y: containerRect.height / 2 - item.h / 2,
+              };
+            default:
+              return { x: item.x, y: item.y + 100 };
+          }
+        })();
+
         gsap.fromTo(
           selector,
           {
@@ -228,7 +239,14 @@ const Masonry: React.FC<MasonryProps> = ({
   };
 
   return (
-    <div ref={containerRef} className="relative w-full h-full">
+    <div
+      ref={containerRef}
+      className="relative w-full"
+      style={{
+        height: imagesReady ? `${containerHeight}px` : "300px",
+        transition: "height 0.5s ease-out",
+      }}
+    >
       {grid.map((item) => (
         <div
           key={item.id}
