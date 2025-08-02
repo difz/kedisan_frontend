@@ -65,9 +65,10 @@ const GalleryPage: React.FC = () => {
     <>
       <Navbar />
 
+      {/* HERO SECTION */}
       <div
         id="hero"
-        className="w-full h-[50vh] bg-cover bg-center relative"
+        className="w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh] bg-cover bg-center relative"
         style={{ backgroundImage: `url(${heroImage})` }}
       >
         <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center px-4">
@@ -76,13 +77,13 @@ const GalleryPage: React.FC = () => {
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
-            className="text-white font-lexend text-base md:text-xl lg:text-2xl font-light tracking-[10px] md:tracking-[16px] uppercase mb-2"
+            className="text-white font-lexend text-sm sm:text-base md:text-xl lg:text-2xl font-light tracking-[8px] sm:tracking-[10px] md:tracking-[16px] uppercase mb-2"
           >
             Explore
           </motion.h2>
 
           <motion.h1
-            className="font-girona font-bold text-[72px] sm:text-[120px] md:text-[150px] lg:text-[186px] leading-none text-transparent bg-clip-text flex justify-center"
+            className="font-girona font-bold text-[48px] sm:text-[90px] md:text-[120px] lg:text-[150px] xl:text-[186px] leading-none text-transparent bg-clip-text flex justify-center"
             style={{
               backgroundImage: "linear-gradient(90deg, #ffffff, #eeeeee)",
               WebkitBackgroundClip: "text",
@@ -107,12 +108,17 @@ const GalleryPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-[#F7F7F7] py-20 px-4 md:px-20">
-        <Gallery />
-      </div>
+      {/* GALLERY SECTION */}
+      <section className="bg-[#F7F7F7] py-16 sm:py-20 px-4 sm:px-8 md:px-20">
+        <div className="relative w-full max-w-screen-2xl mx-auto">
+          <Gallery />
+        </div>
+      </section>
+
+      {/* BUFFER BEFORE FOOTER */}
+      <div className="h-12 sm:h-20 lg:h-24" />
 
       <Footer />
-
     </>
   );
 };
