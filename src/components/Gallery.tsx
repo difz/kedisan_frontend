@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Masonry from "@/effect/Masonry";
 import SplitText from "@/effect/SplitText";
-import { fetchGalleryImages, GalleryImage } from "@/api/fetchGallery";
+import { fetchGalleryImages } from "@/api/fetchGallery";
+import type { GalleryImage } from "@/api/fetchGallery";
 import { urlFor } from "@/lib/imageUrl";
 
 const Gallery: React.FC = () => {
