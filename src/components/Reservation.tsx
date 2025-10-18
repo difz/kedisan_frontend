@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import view from "../images/view.png";
 import {
   Card,
   CardContent,
@@ -13,6 +12,9 @@ import { motion } from "framer-motion";
 import SplitText from "@/effect/SplitText";
 import { useNavigate } from "react-router-dom";
 import { urlFor } from "../lib/imageUrl";
+
+// Lazy load fallback image
+const view = new URL("../images/view.png", import.meta.url).href;
 
 interface TourPackage {
   _id: string;
@@ -143,6 +145,7 @@ const Reservation: React.FC<ReservationProps> = ({ mode = "full" }) => {
                         }
                         alt={pkg.title}
                         className="w-[300px] h-[300px] mx-auto rounded-3xl"
+                        loading="lazy"
                       />
                     </div>
                   ) : (
@@ -156,6 +159,7 @@ const Reservation: React.FC<ReservationProps> = ({ mode = "full" }) => {
                             src={urlFor(img).url()}
                             alt={`image-${i}`}
                             className="w-full h-full object-cover"
+                            loading="lazy"
                           />
                         </div>
                       ))}
@@ -170,7 +174,9 @@ const Reservation: React.FC<ReservationProps> = ({ mode = "full" }) => {
                     if (mode === "simple") {
                       navigate("/reservation#hero");
                     } else if (pkg.link) {
-                      window.open(pkg.link, "_blank");
+                      window.location.href = pkg.link;
+                    } else {
+                      console.warn("No WhatsApp link configured for this package");
                     }
                   }}
                   className="bg-black text-white font-lexend text-base px-6 py-3 rounded-full hover:bg-gray-800"

@@ -1,12 +1,13 @@
-import gallery2 from '../images/gallery2.jpeg';
-import gallery4 from '../images/gallery4.jpeg';
-import gallery5 from '../images/gallery5.jpeg';
-import gallery6 from '../images/gallery6.jpeg';
-import gallery7 from '../images/gallery7.jpeg';
-import gallery8 from '../images/gallery8.jpeg';
-import gallery9 from '../images/gallery9.jpeg';
-import gallery12 from '../images/gallery12.jpg';
-import gallery13 from '../images/gallery13.jpg';
+// Lazy load gallery images
+const gallery2 = new URL('../images/gallery2.jpeg', import.meta.url).href;
+const gallery4 = new URL('../images/gallery4.jpeg', import.meta.url).href;
+const gallery5 = new URL('../images/gallery5.jpeg', import.meta.url).href;
+const gallery6 = new URL('../images/gallery6.jpeg', import.meta.url).href;
+const gallery7 = new URL('../images/gallery7.jpeg', import.meta.url).href;
+const gallery8 = new URL('../images/gallery8.jpeg', import.meta.url).href;
+const gallery9 = new URL('../images/gallery9.jpeg', import.meta.url).href;
+const gallery12 = new URL('../images/gallery12.jpg', import.meta.url).href;
+const gallery13 = new URL('../images/gallery13.jpg', import.meta.url).href;
 
 
 export const galleryImages =[

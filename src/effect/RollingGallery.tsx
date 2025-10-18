@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import {
   motion,
   useMotionValue,
@@ -6,6 +6,7 @@ import {
   useTransform,
 } from "framer-motion";
 import type { PanInfo, ResolvedValues } from "framer-motion";
+import LazyImage from "../components/LazyImage";
 
 interface RollingGalleryProps {
   autoplay?: boolean;
@@ -20,24 +21,52 @@ const RollingGallery: React.FC<RollingGalleryProps> = ({
 }) => {
   const galleryData = images && images.length > 0 ? images : [];
 
-  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 640);
+  const [dimensions, setDimensions] = useState({
+    faceWidth: window.innerWidth <= 640 ? 150 : 300,
+    faceHeight: window.innerWidth <= 640 ? 150 : 200,
+  });
+  const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 640);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+  // Debounced resize handler to prevent blinking
+  const handleResize = useCallback(() => {
+    if (resizeTimeoutRef.current) {
+      clearTimeout(resizeTimeoutRef.current);
+    }
+
+    resizeTimeoutRef.current = setTimeout(() => {
+      const mobile = window.innerWidth <= 640;
+      setDimensions({
+        faceWidth: mobile ? 150 : 300,
+        faceHeight: mobile ? 150 : 200,
+      });
+    }, 150); // 150ms debounce
   }, []);
 
-  // 🎯 Square size on mobile, keep desktop large
-  const faceWidth = isMobile ? 120 : 280;
-  const faceHeight = isMobile ? 120 : 180;
-  const cylinderWidth = isMobile ? 800 : window.innerWidth * 1.15;
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+    };
+  }, [handleResize]);
+
+  const { faceWidth, faceHeight } = dimensions;
   const faceCount = galleryData.length;
-  const radius = (cylinderWidth * 1.4) / (2 * Math.PI);
+
+  // Calculate radius based on image width to prevent overlap
+  // Add 20px gap between images
+  const gap = 20;
+  const circumference = faceCount * (faceWidth + gap);
+  const radius = circumference / (2 * Math.PI);
 
   const dragFactor = 0.05;
   const rotation = useMotionValue(0);
   const controls = useAnimation();
+
+  // Use the actual radius for the container width
+  const cylinderWidth = radius * 2;
 
   const transform = useTransform(
     rotation,
@@ -101,12 +130,12 @@ const RollingGallery: React.FC<RollingGalleryProps> = ({
   };
 
   return (
-    <div className="relative w-full h-[400px] sm:h-[500px] overflow-hidden bg-[#F7F7F7]">
+    <div className="relative w-full h-[400px] sm:h-[500px] overflow-hidden bg-[#F7F7F7] isolate">
       {/* Fade edges */}
-      <div className="absolute top-0 left-0 h-full w-[24px] sm:w-[48px] z-10 bg-[#F7F7F7]" />
-      <div className="absolute top-0 right-0 h-full w-[24px] sm:w-[48px] z-10 bg-[#F7F7F7]" />
+      <div className="absolute top-0 left-0 h-full w-[24px] sm:w-[48px] z-10 bg-gradient-to-r from-[#F7F7F7] to-transparent pointer-events-none" />
+      <div className="absolute top-0 right-0 h-full w-[24px] sm:w-[48px] z-10 bg-gradient-to-l from-[#F7F7F7] to-transparent pointer-events-none" />
 
-      <div className="flex h-full items-center justify-center [perspective:1000px] [transform-style:preserve-3d]">
+      <div className="flex h-full items-center justify-center [perspective:1200px] [transform-style:preserve-3d] overflow-hidden">
         <motion.div
           drag="x"
           dragElastic={0}
@@ -122,12 +151,12 @@ const RollingGallery: React.FC<RollingGalleryProps> = ({
             width: cylinderWidth,
             transformStyle: "preserve-3d",
           }}
-          className="flex min-h-[200px] cursor-grab items-center justify-center [transform-style:preserve-3d]"
+          className="flex min-h-[200px] cursor-grab items-center justify-center [transform-style:preserve-3d] active:cursor-grabbing"
         >
           {galleryData.map((img, i) => (
             <div
               key={img.id}
-              className="group absolute flex items-center justify-center [backface-visibility:hidden]"
+              className="group absolute flex items-center justify-center [backface-visibility:hidden] will-change-transform"
               style={{
                 width: `${faceWidth}px`,
                 height: `${faceHeight}px`,
@@ -135,12 +164,10 @@ const RollingGallery: React.FC<RollingGalleryProps> = ({
               }}
             >
               <div className="w-full h-full overflow-hidden flex items-center justify-center">
-                <img
+                <LazyImage
                   src={img.src}
                   alt={img.alt}
-                  className={`w-full h-full object-cover ${
-                    isMobile ? "rounded-xl" : "rounded-xl"
-                  } border-2 border-white transition-transform duration-300 ease-out group-hover:scale-105`}
+                  className="w-full h-full object-cover rounded-xl border-2 border-white transition-transform duration-300 ease-out group-hover:scale-105"
                 />
               </div>
             </div>

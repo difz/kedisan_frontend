@@ -1,8 +1,10 @@
-import React from "react";
-import heroImage from "../images/contoh.jpg";
+import React, { useState, useEffect } from "react";
 import ClickSpark from "../effect/clickspark";
 import { Button } from "./ui/button";
 import { motion, cubicBezier } from "framer-motion";
+
+// Lazy load hero image
+const heroImage = new URL("../images/contoh.jpg", import.meta.url).href;
 
 // Custom easing functions like Anime.js
 const easeOutExpo = cubicBezier(0.19, 1, 0.22, 1);
@@ -47,30 +49,45 @@ const letterVariants = {
   },
 };
 
-const fadeSlideIn = (delay = 0, duration = 1) => ({
-  initial: { opacity: 0, y: 40 },
-  whileInView: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration,
-      delay,
-      ease: easeOutExpo,
-    },
-  },
-  viewport: { once: true, amount: 0.3 }, // triggers only once
-});
-
 const Hero: React.FC = () => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = heroImage;
+    img.onload = () => setImageLoaded(true);
+
+    // Only trigger animations after user scrolls
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setHasScrolled(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Show animations only after scroll OR after a delay for first visit
+  const shouldAnimate = hasScrolled;
+
   return (
     <section
       id="hero"
-      className="w-full h-screen bg-cover bg-center relative brightness-90"
-      style={{ backgroundImage: `url(${heroImage})` }}
+      className="w-full h-screen bg-cover bg-center relative brightness-90 transition-all duration-500"
+      style={{
+        backgroundImage: imageLoaded ? `url(${heroImage})` : 'none',
+        backgroundColor: imageLoaded ? 'transparent' : '#1a1a1a',
+      }}
     >
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
         <motion.h2
-          {...fadeSlideIn(0.2, 1.8)}
+          initial={{ opacity: 0, y: 40 }}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.8, delay: 0.2, ease: easeOutExpo }}
+          viewport={{ once: true, amount: 0.5 }}
           className="text-white font-lexend text-base md:text-xl lg:text-2xl font-light tracking-[10px] md:tracking-[16px] uppercase mb-2"
         >
           EXPLORE
@@ -87,7 +104,7 @@ const Hero: React.FC = () => {
           variants={containerVariants}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.5 }}
         >
           {headingText.split("").map((char, index) => (
             <motion.span
@@ -101,13 +118,21 @@ const Hero: React.FC = () => {
         </motion.h1>
 
         <motion.p
-          {...fadeSlideIn(1, 2.2)}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 2.2, delay: 1, ease: easeOutExpo }}
+          viewport={{ once: true, amount: 0.5 }}
           className="text-sm sm:text-base md:text-lg lg:text-2xl max-w-md md:max-w-xl mt-2 md:mt-4 px-2 md:px-0"
         >
           Discover the beauty of Bali's hidden village with culture, nature, and serenity.
         </motion.p>
 
-        <motion.div {...fadeSlideIn(1.5, 2.6)}>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 2.6, delay: 1.5, ease: easeOutExpo }}
+          viewport={{ once: true, amount: 0.5 }}
+        >
           <ClickSpark
             sparkColor="#16fffe"
             sparkSize={8}

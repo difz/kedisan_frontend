@@ -46,9 +46,12 @@ const useMeasure = <T extends HTMLElement>() => {
   return [ref, size] as const;
 };
 
-const preloadImages = async (urls: string[]): Promise<void> => {
+// Optimized: Only preload images in initial viewport
+const preloadImages = async (urls: string[], limit: number = 6): Promise<void> => {
+  // Only preload first 6 images for faster initial render
+  const urlsToLoad = urls.slice(0, limit);
   await Promise.all(
-    urls.map(
+    urlsToLoad.map(
       (src) =>
         new Promise<void>((resolve) => {
           const img = new Image();
@@ -104,7 +107,8 @@ const Masonry: React.FC<MasonryProps> = ({
   const [imagesReady, setImagesReady] = useState(false);
 
   useEffect(() => {
-    preloadImages(items.map((i) => i.img)).then(() => setImagesReady(true));
+    // Only preload first 6 images for faster initial load
+    preloadImages(items.map((i) => i.img), 6).then(() => setImagesReady(true));
   }, [items]);
 
   const grid = useMemo(() => {
@@ -257,10 +261,14 @@ const Masonry: React.FC<MasonryProps> = ({
           onMouseEnter={(e) => handleMouseEnter(item.id, e.currentTarget)}
           onMouseLeave={(e) => handleMouseLeave(item.id, e.currentTarget)}
         >
-          <div
-            className="relative w-full h-full bg-cover bg-center rounded-[10px] shadow-[0px_10px_50px_-10px_rgba(0,0,0,0.2)] uppercase text-[10px] leading-[10px]"
-            style={{ backgroundImage: `url(${item.img})` }}
-          >
+          <div className="relative w-full h-full rounded-[10px] shadow-[0px_10px_50px_-10px_rgba(0,0,0,0.2)] overflow-hidden">
+            <img
+              src={item.img}
+              alt={`Gallery item ${item.id}`}
+              className="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
             {colorShiftOnHover && (
               <div className="color-overlay absolute inset-0 rounded-[10px] bg-gradient-to-tr from-pink-500/50 to-sky-500/50 opacity-0 pointer-events-none" />
             )}

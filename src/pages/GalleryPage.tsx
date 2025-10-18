@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion, cubicBezier } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import heroImage from "../images/contoh.jpg";
 import Gallery from "@/components/Gallery";
+
+// Lazy load hero image
+const heroImage = new URL("../images/contoh.jpg", import.meta.url).href;
 
 const easeOutExpo = cubicBezier(0.19, 1, 0.22, 1);
 const easeInExpo = cubicBezier(0.61, 1, 0.88, 1);
@@ -60,6 +62,13 @@ const fadeSlideIn = (delay = 0, duration = 1) => ({
 
 const GalleryPage: React.FC = () => {
   const headingText = "Kedisan";
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = heroImage;
+    img.onload = () => setImageLoaded(true);
+  }, []);
 
   return (
     <>
@@ -68,8 +77,11 @@ const GalleryPage: React.FC = () => {
       {/* HERO SECTION */}
       <div
         id="hero"
-        className="w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh] bg-cover bg-center relative"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        className="w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh] bg-cover bg-center relative transition-all duration-500"
+        style={{
+          backgroundImage: imageLoaded ? `url(${heroImage})` : 'none',
+          backgroundColor: imageLoaded ? 'transparent' : '#1a1a1a',
+        }}
       >
         <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center px-4">
           <motion.h2

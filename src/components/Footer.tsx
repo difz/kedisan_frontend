@@ -1,8 +1,10 @@
 import React from 'react';
-import logoKembara from '../images/Warna Logo.png';
-import logoKKN from '../images/logoKKN.png';
-import logoKedisan from '../../public/KedisanLogo.png';
 import SocialIcon from './ui/socialIcon';
+
+// Lazy load footer logos
+const logoKembara = new URL('../images/Warna Logo.png', import.meta.url).href;
+const logoKKN = new URL('../images/logoKKN.png', import.meta.url).href;
+const logoKedisan = new URL('../../public/KedisanLogo.png', import.meta.url).href;
 
 const Footer: React.FC = () => {
   return (
@@ -26,18 +28,21 @@ const Footer: React.FC = () => {
                 src={logoKedisan}
                 alt="Logo Kedisan"
                 className="h-10 w-10 md:h-12 md:w-12"
+                loading="lazy"
                 onError={(e) => { e.currentTarget.src = 'https://placehold.co/48x48/cccccc/FFFFFF?text=Err'; }}
               />
               <img
                 src={logoKKN}
                 alt="Logo KKN"
                 className="h-10 w-10 md:h-12 md:w-12"
+                loading="lazy"
                 onError={(e) => { e.currentTarget.src = 'https://placehold.co/48x48/cccccc/FFFFFF?text=Err'; }}
               />
               <img
                 src={logoKembara}
                 alt="Logo Outline"
                 className="h-10 w-10 md:h-12 md:w-12"
+                loading="lazy"
                 onError={(e) => { e.currentTarget.src = 'https://placehold.co/48x48/cccccc/FFFFFF?text=Err'; }}
               />
             </div>

@@ -27,6 +27,11 @@ const Navbar: React.FC = () => {
     }
   };
 
+  const handlePageNavigation = (path: string) => {
+    setMenuOpen(false);
+    navigate(path);
+  };
+
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 px-8 py-4 transition-colors duration-300 ${
@@ -55,16 +60,16 @@ const Navbar: React.FC = () => {
             </button>
           </li> */}
           <li>
-            <button 
-            onClick={()=> navigate("/reservation")}
+            <button
+            onClick={() => handlePageNavigation("/reservation")}
             className="hover:underline cursor-pointer"
             >
               Reservation
             </button>
           </li>
           <li>
-            <button 
-            onClick={()=> navigate("/gallery")}
+            <button
+            onClick={() => handlePageNavigation("/gallery")}
             className="hover:underline cursor-pointer"
             >
               Gallery
@@ -95,16 +100,16 @@ const Navbar: React.FC = () => {
             </button>
           </li>
           <li>
-            <button 
-            onClick={()=> navigate("/reservation")}
+            <button
+            onClick={() => handlePageNavigation("/reservation")}
             className="hover:underline cursor-pointer"
             >
               Reservation
             </button>
           </li>
           <li>
-            <button 
-            onClick={()=> navigate("/gallery")}
+            <button
+            onClick={() => handlePageNavigation("/gallery")}
             className="hover:underline cursor-pointer"
             >
               Gallery

@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, cubicBezier  } from "framer-motion";
-import sponsorLogo from "../images/Sponsors.png"; 
+// Lazy load sponsor logo
+const sponsorLogo = new URL("../images/Sponsors.png", import.meta.url).href; 
 
 // Reuse the same easing curve from your Hero
 const easeOutExpo = cubicBezier(0.19, 1, 0.22, 1); 
@@ -38,6 +39,7 @@ const Sponsors: React.FC = () => {
           src={sponsorLogo}
           alt="Sponsor Logo"
           className="w-full max-w-[950px] md:max-w-[1100px] h-auto object-contain"
+          loading="lazy"
         />
       </motion.div>
     </div>
